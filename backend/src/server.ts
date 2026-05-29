@@ -5,12 +5,15 @@ dotenv.config();
 import { connectDB } from "./config/db";
 import roadmapRouter from "./routes/roadmap.routes";
 
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 console.log(process.env.GEMINI_API_KEY);
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || "http://localhost:3000/",
+  }),
+);
 app.use(express.json());
 
 app.get("/", (_, res) => {
