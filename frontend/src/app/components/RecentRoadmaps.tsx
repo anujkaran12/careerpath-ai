@@ -59,7 +59,7 @@ export default function RecentRoadmaps({
       {roadmaps.map((item) => (
         <article
           key={item._id}
-          className="rounded-lg border border-(--border-primary) bg-(--bg-secondary) p-4 transition hover:bg-(--bg-hover)"
+          className="rounded-lg border border-(--border-primary) bg-(--bg-secondary) p-4 transition"
         >
           <div className="flex items-center justify-between gap-3">
             <span className="rounded-lg border border-(--border-primary) px-2.5 py-1 text-xs text-(--text-secondary)">
@@ -88,7 +88,7 @@ export default function RecentRoadmaps({
             <button
               type="button"
               onClick={() => onDelete(item._id)}
-              className="rounded-lg border border-(--danger) px-3 py-2 text-sm text-(--danger) transition hover:bg-red-500/10"
+              className="rounded-lg border border-(--danger) px-3 py-2 text-sm text-(--danger) transition"
             >
               Delete
             </button>
