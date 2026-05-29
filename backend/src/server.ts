@@ -6,7 +6,7 @@ import { connectDB } from "./config/db";
 import roadmapRouter from "./routes/roadmap.routes";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 
 app.use(
