@@ -51,7 +51,7 @@ export default function Home() {
       await generateRoadmap(payload);
       await loadRoadmaps();
     } catch (error) {
-      setError(getErrorMessage(error));
+      setError("Failed to generate roadmap");
     } finally {
       setIsGeneratingRoadmap(false);
     }
