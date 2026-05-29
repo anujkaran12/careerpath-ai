@@ -29,7 +29,7 @@ export default function RecentRoadmaps({
     if (isFetching) {
       return (
         <main className="h-full flex items-center justify-center">
-          <CircularLoader label="Loading roadmaps" />;
+          <CircularLoader label="Loading roadmaps" />
         </main>
       );
     }
