@@ -1,10 +1,10 @@
-import { RequestHandler } from "express";
+import { Request, Response } from "express";
 import mongoose from "mongoose";
 import { IGenerateRoadmapBody } from "../types";
 import { RoadmapModel } from "../models/roadmap.model";
 import { generateRoadmapWithAI } from "../services/ai.service";
 
-export const generateRoadmapHandler: RequestHandler = async (req, res) => {
+export const generateRoadmapHandler = async (req: Request, res: Response) => {
   try {
     const { targetRole, currentSkills, experienceLevel } =
       req.body as IGenerateRoadmapBody;
@@ -21,7 +21,7 @@ export const generateRoadmapHandler: RequestHandler = async (req, res) => {
       targetRole,
     });
 
-    if (generatedRoadmap) { 
+    if (generatedRoadmap) {
       const roadmap = await RoadmapModel.create({
         targetRole,
         currentSkills,
@@ -46,7 +46,7 @@ export const generateRoadmapHandler: RequestHandler = async (req, res) => {
   }
 };
 
-export const getAllRoadmapsHandler: RequestHandler = async (req, res) => {
+export const getAllRoadmapsHandler = async (req: Request, res: Response) => {
   try {
     const roadmaps = await RoadmapModel.find();
     return res.status(200).json({
@@ -61,7 +61,7 @@ export const getAllRoadmapsHandler: RequestHandler = async (req, res) => {
   }
 };
 
-export const deleteRoadmapHandler: RequestHandler = async (req, res) => {
+export const deleteRoadmapHandler = async (req: Request, res: Response) => {
   try {
     const { id: roadmapId } = req.params;
 
@@ -88,7 +88,7 @@ export const deleteRoadmapHandler: RequestHandler = async (req, res) => {
   }
 };
 
-export const getRoadmapByIdHandler: RequestHandler = async (req, res) => {
+export const getRoadmapByIdHandler = async (req: Request, res: Response) => {
   try {
     const { id: roadmapId } = req.params;
 
