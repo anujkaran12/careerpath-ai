@@ -70,7 +70,7 @@ export default function Page() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-(--bg-primary) text-(--text-primary)">
+      <main className="min-h-screen flex items-center justify-center">
         <CircularLoader label="Loading roadmap" />
       </main>
     );

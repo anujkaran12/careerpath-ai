@@ -27,7 +27,11 @@ export default function RecentRoadmaps({
 }: Props) {
   const renderContent = () => {
     if (isFetching) {
-      return <CircularLoader label="Loading roadmaps" />;
+      return (
+        <main className="h-full flex items-center justify-center">
+          <CircularLoader label="Loading roadmaps" />;
+        </main>
+      );
     }
 
     if (error) {
