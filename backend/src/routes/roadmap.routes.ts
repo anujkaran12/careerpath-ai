@@ -14,6 +14,8 @@ roadmapRouter.post("/generate", generateRoadmapHandler);
 
 roadmapRouter.get("/:id", getRoadmapByIdHandler);
 
-roadmapRouter.get("/:id", deleteRoadmapHandler);
+roadmapRouter.delete("/:id", deleteRoadmapHandler);
+
+
 
 export default roadmapRouter;
