@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db";
+import roadmapRouter from "./routes/roadmap.routes";
 
 dotenv.config();
 
@@ -17,6 +18,8 @@ app.get("/", (_, res) => {
     message: "CareerPath AI API Running",
   });
 });
+
+app.use("/api/roadmaps", roadmapRouter);
 
 async function startServer() {
   try {
