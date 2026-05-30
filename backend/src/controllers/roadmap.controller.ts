@@ -3,11 +3,13 @@ import mongoose from "mongoose";
 import { IGenerateRoadmapBody } from "../types";
 import { RoadmapModel } from "../models/roadmap.model";
 import { generateRoadmapWithAI } from "../services/ai.service";
+import { generateHardcodedRoadmap } from "../services/hardcodedRoadmap.service";
 
 export const generateRoadmapHandler = async (req: Request, res: Response) => {
   try {
-    const { targetRole, currentSkills, experienceLevel } =
+    const { targetRole, currentSkills, experienceLevel, generationType } =
       req.body as IGenerateRoadmapBody;
+    const selectedGenerationType = generationType ?? "ai";
 
     if (!targetRole || !currentSkills || !experienceLevel) {
       return res
@@ -15,24 +17,43 @@ export const generateRoadmapHandler = async (req: Request, res: Response) => {
         .json({ status: "error", msg: "All fields are required" });
     }
 
-    const generatedRoadmap = await generateRoadmapWithAI({
-      currentSkills,
-      experienceLevel,
-      targetRole,
-    });
+    if (!["ai", "hardcoded"].includes(selectedGenerationType)) {
+      return res
+        .status(400)
+        .json({ status: "error", msg: "Invalid generation type" });
+    }
+
+    const generatedRoadmap =
+      selectedGenerationType === "hardcoded"
+        ? generateHardcodedRoadmap({
+            currentSkills,
+            experienceLevel,
+            targetRole,
+            generationType: selectedGenerationType,
+          })
+        : await generateRoadmapWithAI({
+            currentSkills,
+            experienceLevel,
+            targetRole,
+            generationType: selectedGenerationType,
+          });
 
     if (generatedRoadmap) {
-      const roadmap = await RoadmapModel.create({
+      await RoadmapModel.create({
         targetRole,
         currentSkills,
         experienceLevel,
+        generationType: selectedGenerationType,
         roadmap: generatedRoadmap.roadmap,
       });
 
       return res.status(201).json({
         status: "success",
         msg: "Roadmap Generated Successfully",
-        data: generatedRoadmap,
+        data: {
+          ...generatedRoadmap,
+          generationType: selectedGenerationType,
+        },
       });
     }
     return res.status(400).json({
