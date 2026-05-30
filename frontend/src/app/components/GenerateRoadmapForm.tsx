@@ -1,7 +1,11 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { ExperienceLevel, GenerateRoadmapPayload } from "@/types/roadmap";
+import {
+  ExperienceLevel,
+  GenerateRoadmapPayload,
+  GenerationType,
+} from "@/types/roadmap";
 
 type Props = {
   isGenerating: boolean;
@@ -12,6 +16,11 @@ const experienceLevels: ExperienceLevel[] = [
   "Beginner",
   "Intermediate",
   "Advanced",
+];
+
+const generationTypes: { label: string; value: GenerationType }[] = [
+  { label: "AI Generated", value: "ai" },
+  { label: "Hardcoded", value: "hardcoded" },
 ];
 
 const parseSkills = (value: string) =>
@@ -28,6 +37,7 @@ export default function GenerateRoadmapForm({
   const [currentSkills, setCurrentSkills] = useState("");
   const [experienceLevel, setExperienceLevel] =
     useState<ExperienceLevel>("Beginner");
+  const [generationType, setGenerationType] = useState<GenerationType>("ai");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -36,6 +46,7 @@ export default function GenerateRoadmapForm({
       targetRole: targetRole.trim(),
       currentSkills: parseSkills(currentSkills),
       experienceLevel,
+      generationType,
     });
   };
 
@@ -90,6 +101,29 @@ export default function GenerateRoadmapForm({
               <option key={level}>{level}</option>
             ))}
           </select>
+        </div>
+
+        <div>
+          <label className="mb-2 block text-sm text-(--text-secondary)">
+            Roadmap Source
+          </label>
+
+          <div className="grid grid-cols-2 gap-2 rounded-lg border border-(--border-primary) bg-(--bg-secondary) p-1">
+            {generationTypes.map((type) => (
+              <button
+                key={type.value}
+                type="button"
+                onClick={() => setGenerationType(type.value)}
+                className={`rounded-md px-3 py-2 text-sm font-medium transition ${
+                  generationType === type.value
+                    ? "bg-(--accent) text-black"
+                    : "text-(--text-secondary) hover:text-(--text-primary)"
+                }`}
+              >
+                {type.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         <button
