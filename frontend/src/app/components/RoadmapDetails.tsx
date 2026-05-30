@@ -13,6 +13,9 @@ const formatDate = (date?: string) => {
   return new Date(date).toLocaleDateString();
 };
 
+const formatGenerationType = (generationType?: Roadmap["generationType"]) =>
+  generationType === "hardcoded" ? "Hardcoded" : "AI Generated";
+
 const renderMeta = (label: string, value: string | number) => (
   <div>
     <p className="text-xs uppercase text-(--text-muted)">{label}</p>
@@ -116,8 +119,8 @@ export default function RoadmapDetails({ roadmap }: Props) {
 
             <div className="grid grid-cols-3 gap-6">
               {renderMeta("Steps", roadmap.roadmap.length)}
+              {renderMeta("Source", formatGenerationType(roadmap.generationType))}
               {renderMeta("Created", formatDate(roadmap.createdAt))}
-              
             </div>
           </div>
         </header>
