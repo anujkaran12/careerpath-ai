@@ -1,4 +1,5 @@
 export type ExperienceLevel = "Beginner" | "Intermediate" | "Advanced";
+export type GenerationType = "ai" | "hardcoded";
 
 export type RoadmapStep = {
   _id?: string;
@@ -15,6 +16,7 @@ export type Roadmap = {
   targetRole: string;
   currentSkills: string[];
   experienceLevel: ExperienceLevel;
+  generationType?: GenerationType;
   roadmap: RoadmapStep[];
   createdAt?: string;
   updatedAt?: string;
@@ -24,4 +26,5 @@ export type GenerateRoadmapPayload = {
   targetRole: string;
   currentSkills: string[];
   experienceLevel: ExperienceLevel;
+  generationType: GenerationType;
 };
