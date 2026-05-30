@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import CircularLoader from "@/app/components/CircularLoader";
+import ErrorMessage from "@/app/components/ErrorMessage";
 import { Roadmap } from "@/types/roadmap";
 
 type Props = {
@@ -38,7 +39,7 @@ export default function RecentRoadmaps({
     }
 
     if (error) {
-      return <p className="text-(--danger)">{error}</p>;
+      return <ErrorMessage message={error} title="Unable to load roadmaps" />;
     }
 
     if (!roadmaps.length) {

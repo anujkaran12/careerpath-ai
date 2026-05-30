@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import CircularLoader from "@/app/components/CircularLoader";
+import ErrorMessage from "@/app/components/ErrorMessage";
 import RoadmapDetails from "@/app/components/RoadmapDetails";
 import { Roadmap } from "@/types/roadmap";
 
@@ -78,9 +79,13 @@ export default function Page() {
 
   if (error || !roadmap) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-(--bg-primary) text-(--text-primary)">
-        {error || "Roadmap Not Found"}
-      </div>
+      <main className="flex min-h-screen items-center justify-center bg-(--bg-primary) px-6 text-(--text-primary)">
+        <ErrorMessage
+          className="w-full max-w-md"
+          message={error || "Roadmap Not Found"}
+          title={error ? "Unable to load roadmap" : "Roadmap not found"}
+        />
+      </main>
     );
   }
 
