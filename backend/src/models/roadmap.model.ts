@@ -19,6 +19,13 @@ const roadmapSchema = new Schema(
       required: true,
     },
 
+    generationType: {
+      type: String,
+      enum: ["ai", "hardcoded"],
+      default: "ai",
+      required: true,
+    },
+
     roadmap: [
       {
         step: Number,
