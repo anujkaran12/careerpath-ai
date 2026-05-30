@@ -19,6 +19,9 @@ const formatDate = (date?: string) => {
   return new Date(date).toLocaleDateString();
 };
 
+const formatGenerationType = (generationType?: Roadmap["generationType"]) =>
+  generationType === "hardcoded" ? "Hardcoded" : "AI Generated";
+
 export default function RecentRoadmaps({
   error,
   isFetching,
@@ -62,9 +65,14 @@ export default function RecentRoadmaps({
           className="rounded-lg border border-(--border-primary) bg-(--bg-secondary) p-4 transition"
         >
           <div className="flex items-center justify-between gap-3">
-            <span className="rounded-lg border border-(--border-primary) px-2.5 py-1 text-xs text-(--text-secondary)">
-              {item.experienceLevel}
-            </span>
+            <div className="flex flex-wrap gap-2">
+              <span className="rounded-lg border border-(--border-primary) px-2.5 py-1 text-xs text-(--text-secondary)">
+                {item.experienceLevel}
+              </span>
+              <span className="rounded-lg border border-(--border-primary) px-2.5 py-1 text-xs text-(--text-secondary)">
+                {formatGenerationType(item.generationType)}
+              </span>
+            </div>
 
             <span className="text-xs text-(--text-muted)">
               {formatDate(item.createdAt)}
